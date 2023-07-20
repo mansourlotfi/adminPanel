@@ -26,4 +26,4 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # expose port 80 for nginx
 EXPOSE 80
 # start nginx
-CMD 
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
