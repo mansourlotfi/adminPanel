@@ -1,29 +1,42 @@
-# using staged builds
-FROM node:18-buster as builder
-# make the directory where the project files will be stored
-RUN mkdir -p /usr/src/next-nginx
-# set it as the working directory so that we don't need to keep referencing it
-WORKDIR /usr/src/next-nginx
-# Copy the package.json file
-COPY package.json package.json
-# install project dependencies
-RUN npm install
-# copy project files 
-# make sure to set up .dockerignore to copy only necessary files
-COPY . .
-# run the build command which will build and export html files
-RUN npm run build
+# Install dependencies only when needed
+FROM node:16-alpine AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-# bundle static assets with nginx
-FROM nginx:1.21.0-alpine as production
+# Rebuild the source code only when needed
+FROM node:16-alpine AS builder
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY . .
+
+RUN yarn build
+
+# Production image, copy all the files and run next
+FROM node:16-alpine AS runner
+WORKDIR /app
+
 ENV NODE_ENV production
-# remove existing files from nginx directory
-RUN rm -rf /usr/share/nginx/html/*
-# copy built assets from 'builder' stage
-COPY --from=builder /usr/src/next-nginx/.next/standalone/.next/server/pages /usr/share/nginx/html
-# add nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-# expose port 80 for nginx
-EXPOSE 80
-# start nginx
-CMD ["nginx", "-g", "daemon off;"]
+
+RUN addgroup --system --gid 1001 bloggroup
+RUN adduser --system --uid 1001 bloguser
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=bloguser:bloggroup /app/.next/standalone ./
+COPY --from=builder --chown=bloguser:bloggroup /app/.next/static ./.next/static
+
+USER bloguser
+
+EXPOSE 3000
+
+ENV PORT 3000
+
+CMD ["node", "server.js"]
