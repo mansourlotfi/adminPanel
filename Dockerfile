@@ -1,34 +1,39 @@
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY package.json .
-COPY yarn.lock .
-RUN yarn install --production
+FROM hub.hamdocker.ir/nginx:1.22.0
+COPY ./out ./project
+RUN rm ../etc/nginx/conf.d/default.conf
+COPY ./nginx-configs ../etc/nginx/conf.d
 
-COPY . .
+# FROM node:18-alpine AS builder
+# WORKDIR /app
+# COPY package.json .
+# COPY yarn.lock .
+# RUN yarn install --production
 
-RUN yarn build
+# COPY . .
 
-# Production image, copy all the files and run next
-FROM node:18-alpine AS runner
-WORKDIR /app
+# RUN yarn build
 
-ENV NODE_ENV production
+# # Production image, copy all the files and run next
+# FROM node:18-alpine AS runner
+# WORKDIR /app
 
-# # We add a non-root user to run the app for security reasons
-# RUN addgroup --system --gid 1001 app
-# RUN adduser --system --uid 1001 app
-# USER app
+# ENV NODE_ENV production
 
-COPY  --from=builder /app/public ./public
-COPY  --from=builder /app/package.json ./package.json
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+# # # We add a non-root user to run the app for security reasons
+# # RUN addgroup --system --gid 1001 app
+# # RUN adduser --system --uid 1001 app
+# # USER app
+
+# COPY  --from=builder /app/public ./public
+# COPY  --from=builder /app/package.json ./package.json
+# COPY --from=builder /app/.next/standalone ./
+# COPY --from=builder /app/.next/static ./.next/static
 
 
-EXPOSE 3000
+# EXPOSE 3000
 
-ENV PORT 3000
+# ENV PORT 3000
 
-CMD ["node", "server.js"]
+# CMD ["node", "server.js"]
 
 
