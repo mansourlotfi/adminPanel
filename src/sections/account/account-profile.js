@@ -8,6 +8,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import { prefix } from "src/utils/prefix";
 
 const user = {
   avatar: "/assets/avatars/avatar-anika-visser.png",
@@ -29,7 +30,7 @@ export const AccountProfile = () => (
         }}
       >
         <Avatar
-          src={user.avatar}
+          src={`${prefix}/${user.avatar}`}
           sx={{
             height: 80,
             mb: 2,

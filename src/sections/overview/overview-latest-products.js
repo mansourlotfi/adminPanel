@@ -16,6 +16,7 @@ import {
   ListItemText,
   SvgIcon,
 } from "@mui/material";
+import { prefix } from "src/utils/prefix";
 
 export const OverviewLatestProducts = (props) => {
   const { products = [], sx } = props;
@@ -34,7 +35,7 @@ export const OverviewLatestProducts = (props) => {
                 {product.image ? (
                   <Box
                     component="img"
-                    src={product.image}
+                    src={`${prefix}/${product.image}`}
                     sx={{
                       borderRadius: 1,
                       height: 48,

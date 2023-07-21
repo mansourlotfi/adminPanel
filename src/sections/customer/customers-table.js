@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
 import { getInitials } from "src/utils/get-initials";
+import { prefix } from "src/utils/prefix";
 
 export const CustomersTable = (props) => {
   const {
@@ -83,7 +84,9 @@ export const CustomersTable = (props) => {
                     </TableCell>
                     <TableCell>
                       <Stack alignItems="center" direction="row" spacing={2}>
-                        <Avatar src={customer.avatar}>{getInitials(customer.name)}</Avatar>
+                        <Avatar src={`${prefix}/${customer.avatar}`}>
+                          {getInitials(customer.name)}
+                        </Avatar>
                         <Typography variant="subtitle2">{customer.name}</Typography>
                       </Stack>
                     </TableCell>
