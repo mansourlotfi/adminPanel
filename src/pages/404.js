@@ -2,6 +2,7 @@ import Head from "next/head";
 import NextLink from "next/link";
 import ArrowRightIcon from "@heroicons/react/24/solid/ArrowRightIcon";
 import { Box, Button, Container, SvgIcon, Typography } from "@mui/material";
+import { prefix } from "src/utils/prefix";
 
 const Page = () => (
   <>
@@ -33,7 +34,7 @@ const Page = () => (
           >
             <img
               alt="Under development"
-              src="/assets/errors/error-404.png"
+              src={`${prefix}/assets/errors/error-404.png`}
               style={{
                 display: "inline-block",
                 maxWidth: "100%",

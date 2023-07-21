@@ -16,6 +16,7 @@ import {
 import { alpha } from "@mui/material/styles";
 import { usePopover } from "src/hooks/use-popover";
 import { AccountPopover } from "./account-popover";
+import { prefix } from "src/utils/prefix";
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
@@ -94,7 +95,7 @@ export const TopNav = (props) => {
                 height: 40,
                 width: 40,
               }}
-              src="/assets/avatars/avatar-anika-visser.png"
+              src={`${prefix}/assets/avatars/avatar-anika-visser.png`}
             />
           </Stack>
         </Stack>
