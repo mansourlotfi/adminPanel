@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import NextLink from "next/link";
 import { Box, Typography, Unstable_Grid2 as Grid } from "@mui/material";
 import { Logo } from "src/components/logo";
-
+import { prefix } from "src/utils/prefix";
 // TODO: Change subtitle text
 
 export const Layout = (props) => {
@@ -84,7 +84,7 @@ export const Layout = (props) => {
             <Typography align="center" sx={{ mb: 3 }} variant="subtitle1">
               یک دیزاین کیت حرفه ای با کمپونت های آماده MUI
             </Typography>
-            <img alt="" src="/assets/auth-illustration.svg" />
+            <img alt="" src={`${prefix}/assets/auth-illustration.svg`} />
           </Box>
         </Grid>
       </Grid>

@@ -3,6 +3,6 @@ module.exports = {
   trailingSlash: true,
   reactStrictMode: true,
   //this options is for deplying in github pages , comment it for your hosting
-  basePath: "/adminPanel",
-  assetPrefix: "/adminPanel/", // assetPrefix requires the trailing slash
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH,
 };

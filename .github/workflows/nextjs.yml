@@ -81,6 +81,8 @@ jobs:
         uses: actions/upload-pages-artifact@v2
         with:
           path: ./out
+    env:
+      NEXT_PUBLIC_BASE_PATH: /adminPanel
 
   # Deployment job
   deploy:
