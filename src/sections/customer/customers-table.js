@@ -84,7 +84,7 @@ export const CustomersTable = (props) => {
                     </TableCell>
                     <TableCell>
                       <Stack alignItems="center" direction="row" spacing={2}>
-                        <Avatar src={`${prefix}/${customer.avatar}`}>
+                        <Avatar src={`${prefix}${customer.avatar}`}>
                           {getInitials(customer.name)}
                         </Avatar>
                         <Typography variant="subtitle2">{customer.name}</Typography>

@@ -30,7 +30,7 @@ export const AccountProfile = () => (
         }}
       >
         <Avatar
-          src={`${prefix}/${user.avatar}`}
+          src={`${prefix}${user.avatar}`}
           sx={{
             height: 80,
             mb: 2,

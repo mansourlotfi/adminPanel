@@ -23,7 +23,7 @@ export const CompanyCard = (props) => {
             pb: 3,
           }}
         >
-          <Avatar src={`${prefix}/${company.logo}`} variant="square" />
+          <Avatar src={`${prefix}${company.logo}`} variant="square" />
         </Box>
         <Typography align="center" gutterBottom variant="h5">
           {company.title}
