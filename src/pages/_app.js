@@ -9,6 +9,7 @@ import { useNProgress } from "src/hooks/use-nprogress";
 import { createTheme } from "src/theme";
 import createCache from "@emotion/cache";
 import rtlPlugin from "stylis-plugin-rtl";
+import "../layouts/styles.css";
 // import { prefixer } from "stylis";
 
 // import { createEmotionCache } from "src/utils/create-emotion-cache";
